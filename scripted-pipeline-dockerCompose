@@ -1,0 +1,22 @@
+pipeline{
+    agent any
+    stages{
+        stage("code"){
+            steps{
+                git 'https://github.com/MdSurem/docker-compose.git'
+            }
+        }
+        stage("build"){
+            steps{
+                sh "mvn clean package"
+                sh "cp -r /var/lib/jenkins/workspace/myjob/target Docker-app"
+            }
+        }
+        stage("contair-build"){
+            steps{
+                sh "cd /var/lib/jenkins/workspace/myjob"
+                sh "docker-compose up -d"
+            }
+        }
+    }
+}
