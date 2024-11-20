@@ -2,13 +2,16 @@
  version: "3"
  services:
     app:
-      container_name: cont1
-      build: ./Docker-app
-      ports:
-       - "888:80"
-
-    db:
       container_name: devopsdb
       build: ./Docker-db
       ports:
        - "3306:3306"
+
+    db:
+      container_name: cont-1
+      build: ./Docker-app
+      link:
+       - app
+      ports:
+       - "999:80"
+      
